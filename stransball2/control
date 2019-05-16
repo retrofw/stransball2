@@ -1,0 +1,10 @@
+Package: stransball2
+Version: 
+Description: RetroGame port of Super Transball 2
+Section: emus
+Priority: optional
+Maintainer: pingflood
+Architecture: mipsel
+Homepage: https://github.com/retrofw/stransball2
+Depends:
+Source: https://github.com/retrofw/stransball2

@@ -27,7 +27,7 @@
 int SCREEN_X=320;
 int SCREEN_Y=240;
 int PIXEL_SIZE=1;
-int COLOUR_DEPTH=32;
+int COLOUR_DEPTH=16;
 
 #ifdef _WIN32
 //bool fullscreen=true;

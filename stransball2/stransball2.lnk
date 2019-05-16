@@ -1,0 +1,4 @@
+title=S Transball 2
+description=Super Transball 2 port
+exec=/home/retrofw/games/stransball2/stransball2.elf
+clock=600

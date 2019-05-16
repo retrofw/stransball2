@@ -1,5 +1,7 @@
 *~
 *.o
 .*
-./stransball2
 !/.gitignore
+*.ipk
+*.opk
+*.elf

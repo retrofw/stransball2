@@ -1,22 +1,12 @@
-PLATFORM=gcw0
-
 ifeq ($(PLATFORM), gcw0)
-CHAINPREFIX := /opt/mipsel-linux-uclibc
-CROSS_COMPILE := $(CHAINPREFIX)/usr/bin/mipsel-linux-
-
-CXX := $(CROSS_COMPILE)g++
-STRIP := $(CROSS_COMPILE)strip
-
-SYSROOT := $(shell $(CC) --print-sysroot)
-SDL_CFLAGS := $(shell $(SYSROOT)/usr/bin/sdl-config --cflags)
-SDL_LIBS := $(shell $(SYSROOT)/usr/bin/sdl-config --libs)
-
+CXX	:= /opt/gcw0-toolchain/usr/bin/mipsel-linux-g++
+STRIP	:= /opt/gcw0-toolchain/usr/bin/mipsel-linux-strip
 endif
 
 CXX	?= g++
 STRIP	?= strip
-SYSROOT	?= $(shell $(CXX) --print-sysroot)
-TARGET	:= stransball2.dge
+SYSROOT	:= $(shell $(CXX) --print-sysroot)
+TARGET	:= stransball2
 OBJS	:= \
 	auxiliar.o           configuration.o     encoder.o \
 	enemies.o            fonts.o       	 game.o \
@@ -32,17 +22,17 @@ OBJS	:= \
 ifdef DEBUG
 	CXXFLAGS += -g3
 else
-	CXXFLAGS += -Ofast -mno-abicalls -mips32 -mplt -I./libSGE
+	CXXFLAGS += -O3
 endif
 
 all: $(TARGET)
 
 %.o: %.cpp
-	$(CXX) $(CXXFLAGS) -c $< -o $@ -I$(SYSROOT)/usr/include/SDL
+	$(CXX) -c $(CXXFLAGS) $< -o $@ `$(SYSROOT)/usr/bin/sdl-config --cflags`
 
 # dynamically linked binary:
 $(TARGET): $(OBJS)
-	$(CXX) $^ -o $@ -lSDL -lSDL_image -lSDL_mixer ./libSGE/libSGE.a
+	$(CXX) $^ -o $@ `$(SYSROOT)/usr/bin/sdl-config --libs` -lSDL_image -lSDL_mixer -lSDL_sound -lSDL_sound -lSGE
 ifndef DEBUG
 	$(STRIP) $(TARGET)
 endif
